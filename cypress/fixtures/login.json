@@ -1,0 +1,144 @@
+{
+  "selectors": {
+    "usernameInput":   "[name='username']",
+    "passwordInput":   "[name='password']",
+    "loginButton":     "[type='submit']",
+    "errorMessage":    ".oxd-alert-content-text",
+    "requiredHelper":  ".oxd-input-field-error-message",
+    "forgotPassword":  ".orangehrm-login-forgot > p",
+    "dashboardHeader": ".oxd-topbar-header-breadcrumb"
+  },
+
+  "validUser": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+
+  "positiveCases": [
+    {
+      "tcId":        "TC_001",
+      "description": "Login with valid username and valid password",
+      "username":    "Admin",
+      "password":    "admin123",
+      "submitMethod":"button"
+    },
+    {
+      "tcId":        "TC_007",
+      "description": "Login with username in lowercase (case-insensitive)",
+      "username":    "admin",
+      "password":    "admin123",
+      "submitMethod":"button"
+    },
+    {
+      "tcId":        "TC_008",
+      "description": "Login with username containing leading and trailing spaces",
+      "username":    " Admin ",
+      "password":    "admin123",
+      "submitMethod":"button"
+    },
+    {
+      "tcId":        "TC_018",
+      "description": "Login by pressing Enter key instead of clicking Login button",
+      "username":    "Admin",
+      "password":    "admin123",
+      "submitMethod":"enter"
+    }
+  ],
+
+  "invalidCredentialsCases": [
+    {
+      "tcId":        "TC_002",
+      "description": "Login with valid username and invalid password",
+      "username":    "Admin",
+      "password":    "wrongpass"
+    },
+    {
+      "tcId":        "TC_003",
+      "description": "Login with invalid username and random password",
+      "username":    "randomuser",
+      "password":    "randompass"
+    },
+    {
+      "tcId":        "TC_016",
+      "description": "Login with special characters in username",
+      "username":    "Admin!@#$",
+      "password":    "admin123"
+    },
+    {
+      "tcId":        "TC_017",
+      "description": "Login with special characters in password",
+      "username":    "Admin",
+      "password":    "!@#$%^&*()"
+    },
+    {
+      "tcId":        "TC_019",
+      "description": "Login with numeric-only username",
+      "username":    "123456",
+      "password":    "admin123"
+    },
+    {
+      "tcId":        "TC_020",
+      "description": "Login with numeric-only password",
+      "username":    "Admin",
+      "password":    "123456"
+    },
+    {
+      "tcId":        "TC_012",
+      "description": "Login with username exceeding 100 characters",
+      "username":    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "password":    "admin123"
+    },
+    {
+      "tcId":        "TC_013",
+      "description": "Login with password exceeding 100 characters",
+      "username":    "Admin",
+      "password":    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+
+  "requiredFieldCases": [
+    {
+      "tcId":        "TC_004",
+      "description": "Login with valid username and empty password",
+      "username":    "Admin",
+      "password":    "",
+      "emptyField":  "password"
+    },
+    {
+      "tcId":        "TC_005",
+      "description": "Login with empty username and random password",
+      "username":    "",
+      "password":    "randompass",
+      "emptyField":  "username"
+    },
+    {
+      "tcId":        "TC_006",
+      "description": "Login with both username and password empty",
+      "username":    "",
+      "password":    "",
+      "emptyField":  "both"
+    }
+  ],
+
+  "securityCases": [
+    {
+      "tcId":        "TC_009",
+      "description": "SQL injection in username field",
+      "username":    "' OR '1'='1",
+      "password":    "anything"
+    },
+    {
+      "tcId":        "TC_010",
+      "description": "SQL injection in password field",
+      "username":    "Admin",
+      "password":    "' OR '1'='1"
+    },
+    {
+      "tcId":        "TC_011",
+      "description": "XSS payload in username field",
+      "username":    "<script>alert('xss')</script>",
+      "password":    "admin123",
+      "isXss":       true
+    }
+  ]
+}
