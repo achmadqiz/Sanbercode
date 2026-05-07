@@ -1,0 +1,45 @@
+{
+  "baseUrl": "https://api.escuelajs.co/api/v1",
+
+  "testData": {
+    "newCategory": {
+      "name": "Test Category",
+      "image": "https://placeimg.com/640/480/tech",
+      "slug": "test-category"
+    },
+    "updateCategory": {
+      "name": "Updated Category",
+      "image": "https://placeimg.com/640/480/any",
+      "slug": "updated-category"
+    },
+    "invalidCategory": {
+      "name": "",
+      "image": "not-a-valid-url"
+    },
+    "categoryToDelete": {
+      "name": "Delete Me - Test Category",
+      "image": "https://placeimg.com/640/480/animals"
+    }
+  },
+
+  "endpoints": {
+    "categories": "/categories",
+    "categoryById": "/categories/{id}",
+    "categoryBySlug": "/categories/slug/{slug}",
+    "productsByCategory": "/categories/{id}/products"
+  },
+
+  "expectedStatus": {
+    "success": 200,
+    "created": 201,
+    "noContent": 204,
+    "badRequest": 400,
+    "notFound": 404,
+    "serverError": 500
+  },
+
+  "schema": {
+    "categoryKeys": ["id", "name", "slug", "image"],
+    "productKeys": ["id", "title", "slug", "price", "description", "category", "images"]
+  }
+}
