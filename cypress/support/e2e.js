@@ -1,5 +1,5 @@
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Global configuration for API testing
-import './api-commands'
+import "./api-commands";

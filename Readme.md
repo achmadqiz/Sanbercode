@@ -21,12 +21,12 @@ An end-to-end and API test suite built with [Cypress](https://www.cypress.io/), 
 
 ## Tech Stack
 
-| Tool | Version | Purpose |
-|---|---|---|
-| Cypress | ^14.5.4 | Test runner |
-| AJV | ^8.20.0 | JSON Schema validation |
-| ajv-formats | ^3.0.1 | URI / format support for AJV |
-| Node.js | >=18 | Runtime |
+| Tool        | Version | Purpose                      |
+| ----------- | ------- | ---------------------------- |
+| Cypress     | ^14.5.4 | Test runner                  |
+| AJV         | ^8.20.0 | JSON Schema validation       |
+| ajv-formats | ^3.0.1  | URI / format support for AJV |
+| Node.js     | >=18    | Runtime                      |
 
 ---
 
@@ -128,53 +128,53 @@ npx cypress run --spec "cypress/e2e/auth/**"
 
 ### Auth — Login (`login.ui.cy.js`, `login.pom.cy.js`, `login.intercept.cy.js`)
 
-| Category | What is tested |
-|---|---|
-| Positive | Valid credentials, lowercase username (case-insensitivity), Enter key submission, session persistence |
+| Category                       | What is tested                                                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Positive                       | Valid credentials, lowercase username (case-insensitivity), Enter key submission, session persistence                                 |
 | Negative — Invalid Credentials | Wrong password, unregistered username, leading/trailing spaces, username/password >100 chars, special characters, numeric-only inputs |
-| Negative — Validation | Empty password, empty username, both fields empty |
-| Security | SQL injection in username/password, XSS payload in username |
-| UI / UX | Password field masking, Forgot Password link navigation |
-| Resilience | Stubbed 500 dashboard API does not crash the page |
-| Network | Dashboard API called on login, not called on failed login, Enter key triggers correct API |
+| Negative — Validation          | Empty password, empty username, both fields empty                                                                                     |
+| Security                       | SQL injection in username/password, XSS payload in username                                                                           |
+| UI / UX                        | Password field masking, Forgot Password link navigation                                                                               |
+| Resilience                     | Stubbed 500 dashboard API does not crash the page                                                                                     |
+| Network                        | Dashboard API called on login, not called on failed login, Enter key triggers correct API                                             |
 
 ### Auth — Forgot Password (`forgot-password.pom.cy.js`, `forgot-password.intercept.cy.js`)
 
-| Category | What is tested |
-|---|---|
-| Navigation | Link from login navigates to Reset Password page, direct URL access, cancel redirects to login |
-| Form Submission | Empty username shows Required, unregistered username shows success page (no user enumeration) |
-| UI Elements | Username field visibility and editability, submit/cancel button states, page title |
-| Security | XSS payload does not execute, SQL injection handled gracefully |
-| Network | i18n messages API called on page load |
+| Category        | What is tested                                                                                 |
+| --------------- | ---------------------------------------------------------------------------------------------- |
+| Navigation      | Link from login navigates to Reset Password page, direct URL access, cancel redirects to login |
+| Form Submission | Empty username shows Required, unregistered username shows success page (no user enumeration)  |
+| UI Elements     | Username field visibility and editability, submit/cancel button states, page title             |
+| Security        | XSS payload does not execute, SQL injection handled gracefully                                 |
+| Network         | i18n messages API called on page load                                                          |
 
 ### Dashboard — Directory (`directory.pom.cy.js`, `directory.intercept.cy.js`)
 
-| Category | What is tested |
-|---|---|
-| Navigation | Sidebar menu click, direct URL access, topbar breadcrumb |
-| UI Elements | Search input, Search button, Reset button, employee cards on load, employee name display |
-| Search — Positive | Typing in search input, partial name search, empty search returns all, Reset clears field and reloads |
-| Search — Negative | Non-existent name returns zero cards |
-| Security | XSS payload in search field, SQL injection in search field |
-| Session & Access Control | Authenticated navigation without re-login, unauthenticated redirect to login |
-| Network | Employee list API called on load and on search, employee detail API called on card click |
-| Stubbed Responses | One employee stub, empty data stub, 500 error stub |
+| Category                 | What is tested                                                                                        |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Navigation               | Sidebar menu click, direct URL access, topbar breadcrumb                                              |
+| UI Elements              | Search input, Search button, Reset button, employee cards on load, employee name display              |
+| Search — Positive        | Typing in search input, partial name search, empty search returns all, Reset clears field and reloads |
+| Search — Negative        | Non-existent name returns zero cards                                                                  |
+| Security                 | XSS payload in search field, SQL injection in search field                                            |
+| Session & Access Control | Authenticated navigation without re-login, unauthenticated redirect to login                          |
+| Network                  | Employee list API called on load and on search, employee detail API called on card click              |
+| Stubbed Responses        | One employee stub, empty data stub, 500 error stub                                                    |
 
 ### Categories API (`crud.api.cy.js`)
 
-| Test ID | Endpoint | What is tested |
-|---|---|---|
-| CAT-CRUD-001 | GET /categories | Returns list, schema valid |
-| CAT-CRUD-002 | POST /categories | Creates new category, returns ID and slug |
-| CAT-CRUD-003 | GET /categories/{id} | Returns correct category by dynamic ID |
-| CAT-CRUD-004 | GET /categories/slug/{slug} | Returns category by slug |
-| CAT-CRUD-005 | PUT /categories/{id} | Updates category by dynamic ID |
-| CAT-CRUD-006 | DELETE /categories/{id} | Deletes category, verifies via GET |
-| CAT-CRUD-007 | GET /categories/{id}/products | Returns products for a category |
-| CAT-CRUD-008 | GET /categories/{invalidId} | Returns 400/404/500 for non-existent ID |
-| CAT-CRUD-009 | GET /categories/slug/{invalidSlug} | Returns error for invalid slug |
-| CAT-CRUD-010 | POST /categories | Rejects invalid category data |
+| Test ID      | Endpoint                           | What is tested                            |
+| ------------ | ---------------------------------- | ----------------------------------------- |
+| CAT-CRUD-001 | GET /categories                    | Returns list, schema valid                |
+| CAT-CRUD-002 | POST /categories                   | Creates new category, returns ID and slug |
+| CAT-CRUD-003 | GET /categories/{id}               | Returns correct category by dynamic ID    |
+| CAT-CRUD-004 | GET /categories/slug/{slug}        | Returns category by slug                  |
+| CAT-CRUD-005 | PUT /categories/{id}               | Updates category by dynamic ID            |
+| CAT-CRUD-006 | DELETE /categories/{id}            | Deletes category, verifies via GET        |
+| CAT-CRUD-007 | GET /categories/{id}/products      | Returns products for a category           |
+| CAT-CRUD-008 | GET /categories/{invalidId}        | Returns 400/404/500 for non-existent ID   |
+| CAT-CRUD-009 | GET /categories/slug/{invalidSlug} | Returns error for invalid slug            |
+| CAT-CRUD-010 | POST /categories                   | Rejects invalid category data             |
 
 ---
 
@@ -196,9 +196,9 @@ Page Objects live in `cypress/pages/`. Each class receives selectors from its fi
 
 ```js
 // Usage in tests
-const loginPage = new LoginPage(data.selectors)
-loginPage.login(username, password)
-loginPage.getErrorMessage().should('contain.text', 'Invalid credentials')
+const loginPage = new LoginPage(data.selectors);
+loginPage.login(username, password);
+loginPage.getErrorMessage().should("contain.text", "Invalid credentials");
 ```
 
 ### Session management
@@ -206,11 +206,11 @@ loginPage.getErrorMessage().should('contain.text', 'Invalid credentials')
 Authenticated tests use `cy.session()` to cache the login session across tests, avoiding repeated login round-trips:
 
 ```js
-cy.session('admin-session', () => {
-  cy.visit(fixture.urls.login)
-  cy.login(fixture.credentials.username, fixture.credentials.password)
-  cy.url().should('include', '/dashboard')
-})
+cy.session("admin-session", () => {
+    cy.visit(fixture.urls.login);
+    cy.login(fixture.credentials.username, fixture.credentials.password);
+    cy.url().should("include", "/dashboard");
+});
 ```
 
 ### Nested describe structure
@@ -231,10 +231,10 @@ describe("Feature")
 
 ## Applications Under Test
 
-| Application | URL | Purpose |
-|---|---|---|
-| OrangeHRM Live Demo | https://opensource-demo.orangehrmlive.com | UI & E2E tests (Login, Forgot Password, Directory) |
-| Platzi Fake Store API | https://api.escuelajs.co/api/v1 | API CRUD tests (Categories, Products) |
+| Application           | URL                                       | Purpose                                            |
+| --------------------- | ----------------------------------------- | -------------------------------------------------- |
+| OrangeHRM Live Demo   | https://opensource-demo.orangehrmlive.com | UI & E2E tests (Login, Forgot Password, Directory) |
+| Platzi Fake Store API | https://api.escuelajs.co/api/v1           | API CRUD tests (Categories, Products)              |
 
 > **Note:** OrangeHRM Live Demo is a public shared server. Occasional 500 errors or slow responses are expected — they are server-side issues, not test failures.
 
@@ -246,28 +246,28 @@ Defined in `cypress/support/commands.js` and `cypress/support/api-commands.js`.
 
 ### UI Commands
 
-| Command | Parameters | Description |
-|---|---|---|
+| Command                        | Parameters       | Description                                              |
+| ------------------------------ | ---------------- | -------------------------------------------------------- |
 | `cy.login(username, password)` | `string, string` | Types credentials and clicks submit. Skips empty fields. |
 
 ### API Commands
 
-| Command | Parameters | Description |
-|---|---|---|
-| `cy.apiGetCategories()` | — | GET /categories |
-| `cy.apiGetCategoryById(id)` | `number` | GET /categories/{id} |
-| `cy.apiGetCategoryBySlug(slug)` | `string` | GET /categories/slug/{slug} |
-| `cy.apiCreateCategory(data)` | `object` | POST /categories |
-| `cy.apiUpdateCategory(id, data)` | `number, object` | PUT /categories/{id} |
-| `cy.apiDeleteCategory(id)` | `number` | DELETE /categories/{id} |
-| `cy.apiGetProductsByCategory(id)` | `number` | GET /categories/{id}/products |
+| Command                           | Parameters       | Description                   |
+| --------------------------------- | ---------------- | ----------------------------- |
+| `cy.apiGetCategories()`           | —                | GET /categories               |
+| `cy.apiGetCategoryById(id)`       | `number`         | GET /categories/{id}          |
+| `cy.apiGetCategoryBySlug(slug)`   | `string`         | GET /categories/slug/{slug}   |
+| `cy.apiCreateCategory(data)`      | `object`         | POST /categories              |
+| `cy.apiUpdateCategory(id, data)`  | `number, object` | PUT /categories/{id}          |
+| `cy.apiDeleteCategory(id)`        | `number`         | DELETE /categories/{id}       |
+| `cy.apiGetProductsByCategory(id)` | `number`         | GET /categories/{id}/products |
 
 ### Schema Validation Commands
 
-| Command | Parameters | Description |
-|---|---|---|
-| `cy.validateCategorySchema(obj)` | `object` | Validates against JSON Schema using AJV. Throws with field-level errors on failure. |
-| `cy.validateProductSchema(obj)` | `object` | Validates product object against JSON Schema. |
+| Command                          | Parameters | Description                                                                         |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------------------- |
+| `cy.validateCategorySchema(obj)` | `object`   | Validates against JSON Schema using AJV. Throws with field-level errors on failure. |
+| `cy.validateProductSchema(obj)`  | `object`   | Validates product object against JSON Schema.                                       |
 
 ---
 
@@ -278,15 +278,15 @@ Schema definitions live in `cypress/schemas/category-schema.js` using standard J
 ```js
 // category-schema.js
 export const categorySchema = {
-  type: 'object',
-  required: ['id', 'name', 'slug', 'image'],
-  properties: {
-    id:    { type: 'integer', minimum: 1 },
-    name:  { type: 'string', minLength: 1 },
-    slug:  { type: 'string', pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$' },
-    image: { type: 'string', format: 'uri' }
-  }
-}
+    type: "object",
+    required: ["id", "name", "slug", "image"],
+    properties: {
+        id: { type: "integer", minimum: 1 },
+        name: { type: "string", minLength: 1 },
+        slug: { type: "string", pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        image: { type: "string", format: "uri" },
+    },
+};
 ```
 
 When validation fails, AJV reports all broken fields at once:
@@ -303,9 +303,9 @@ data/image must match format "uri"
 
 All test data, selectors, URLs, and payloads are externalized into `cypress/fixtures/` so tests contain zero hardcoded strings.
 
-| Fixture | Used by | Contains |
-|---|---|---|
-| `login.json` | login specs | Selectors, URLs, credentials, test payloads (SQL, XSS, long strings) |
-| `forgotPassword.json` | forgot-password specs | Selectors, URLs, valid/invalid usernames, security payloads |
-| `directory.json` | directory specs | Selectors, URLs, credentials, API patterns, mock employee data, search cases |
-| `categories.json` | crud.api spec | Test category data, expected HTTP status codes, endpoint templates |
+| Fixture               | Used by               | Contains                                                                     |
+| --------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `login.json`          | login specs           | Selectors, URLs, credentials, test payloads (SQL, XSS, long strings)         |
+| `forgotPassword.json` | forgot-password specs | Selectors, URLs, valid/invalid usernames, security payloads                  |
+| `directory.json`      | directory specs       | Selectors, URLs, credentials, API patterns, mock employee data, search cases |
+| `categories.json`     | crud.api spec         | Test category data, expected HTTP status codes, endpoint templates           |

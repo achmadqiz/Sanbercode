@@ -1,53 +1,53 @@
 class LoginPage {
-  constructor(sel) {
-    this.sel = sel
-  }
+    constructor(sel) {
+        this.sel = sel;
+    }
 
-  visit() {
-    cy.visit('/web/index.php/auth/login')
-  }
+    visit() {
+        cy.visit("/web/index.php/auth/login");
+    }
 
-  fillUsername(value) {
-    if (value !== '') cy.get(this.sel.usernameInput).clear().type(value)
-  }
+    fillUsername(value) {
+        if (value !== "") cy.get(this.sel.usernameInput).clear().type(value);
+    }
 
-  fillPassword(value) {
-    if (value !== '') cy.get(this.sel.passwordInput).clear().type(value)
-  }
+    fillPassword(value) {
+        if (value !== "") cy.get(this.sel.passwordInput).clear().type(value);
+    }
 
-  submitForm() {
-    cy.get(this.sel.loginButton).click()
-  }
+    submitForm() {
+        cy.get(this.sel.loginButton).click();
+    }
 
-  submitByEnter() {
-    cy.get(this.sel.passwordInput).type('{enter}')
-  }
+    submitByEnter() {
+        cy.get(this.sel.passwordInput).type("{enter}");
+    }
 
-  login(username, password) {
-    this.fillUsername(username)
-    this.fillPassword(password)
-    this.submitForm()
-  }
+    login(username, password) {
+        this.fillUsername(username);
+        this.fillPassword(password);
+        this.submitForm();
+    }
 
-  getErrorMessage() {
-    return cy.get(this.sel.errorMessage)
-  }
+    getErrorMessage() {
+        return cy.get(this.sel.errorMessage);
+    }
 
-  getRequiredMessages() {
-    return cy.get(this.sel.requiredHelper)
-  }
+    getRequiredMessages() {
+        return cy.get(this.sel.requiredHelper);
+    }
 
-  getDashboardHeader() {
-    return cy.get(this.sel.dashboardHeader)
-  }
+    getDashboardHeader() {
+        return cy.get(this.sel.dashboardHeader);
+    }
 
-  getPasswordField() {
-    return cy.get(this.sel.passwordInput)
-  }
+    getPasswordField() {
+        return cy.get(this.sel.passwordInput);
+    }
 
-  getForgotPasswordLink() {
-    return cy.get(this.sel.forgotPassword)
-  }
+    getForgotPasswordLink() {
+        return cy.get(this.sel.forgotPassword);
+    }
 }
 
-export default LoginPage
+export default LoginPage;

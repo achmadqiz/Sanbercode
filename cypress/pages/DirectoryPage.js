@@ -1,91 +1,91 @@
 class DirectoryPage {
-  constructor(selectors) {
-    this.sel = selectors
-  }
+    constructor(selectors) {
+        this.sel = selectors;
+    }
 
-  // ─────────────────────────────────────────────
-  // Navigation helpers
-  // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Navigation helpers
+    // ─────────────────────────────────────────────
 
-  visitLogin() {
-    cy.visit('/web/index.php/auth/login')
-  }
+    visitLogin() {
+        cy.visit("/web/index.php/auth/login");
+    }
 
-  visitDirectory() {
-    cy.visit('/web/index.php/directory/viewDirectory')
-  }
+    visitDirectory() {
+        cy.visit("/web/index.php/directory/viewDirectory");
+    }
 
-  loginAs(username, password) {
-    cy.get(this.sel.usernameInput).clear().type(username)
-    cy.get(this.sel.passwordInput).clear().type(password)
-    cy.get(this.sel.loginButton).click()
-    cy.url().should('include', '/dashboard')
-  }
+    loginAs(username, password) {
+        cy.get(this.sel.usernameInput).clear().type(username);
+        cy.get(this.sel.passwordInput).clear().type(password);
+        cy.get(this.sel.loginButton).click();
+        cy.url().should("include", "/dashboard");
+    }
 
-  // ─────────────────────────────────────────────
-  // Sidebar navigation
-  // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Sidebar navigation
+    // ─────────────────────────────────────────────
 
-  clickDirectoryMenu() {
-    cy.get(this.sel.directoryMenuLink).click()
-  }
+    clickDirectoryMenu() {
+        cy.get(this.sel.directoryMenuLink).click();
+    }
 
-  // ─────────────────────────────────────────────
-  // Page element getters
-  // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Page element getters
+    // ─────────────────────────────────────────────
 
-  getPageTitle() {
-    return cy.get(this.sel.pageTitle)
-  }
+    getPageTitle() {
+        return cy.get(this.sel.pageTitle);
+    }
 
-  getTopbarBreadcrumb() {
-    return cy.get(this.sel.topbarBreadcrumb)
-  }
+    getTopbarBreadcrumb() {
+        return cy.get(this.sel.topbarBreadcrumb);
+    }
 
-  getSearchNameInput() {
-    return cy.get(this.sel.searchNameInput)
-  }
+    getSearchNameInput() {
+        return cy.get(this.sel.searchNameInput);
+    }
 
-  getJobTitleDropdown() {
-    return cy.get(this.sel.jobTitleDropdown)
-  }
+    getJobTitleDropdown() {
+        return cy.get(this.sel.jobTitleDropdown);
+    }
 
-  getSearchButton() {
-    return cy.get(this.sel.searchButton)
-  }
+    getSearchButton() {
+        return cy.get(this.sel.searchButton);
+    }
 
-  getResetButton() {
-    return cy.get(this.sel.resetButton)
-  }
+    getResetButton() {
+        return cy.get(this.sel.resetButton);
+    }
 
-  getEmployeeCards() {
-    return cy.get(this.sel.employeeCard)
-  }
+    getEmployeeCards() {
+        return cy.get(this.sel.employeeCard);
+    }
 
-  // ─────────────────────────────────────────────
-  // Action helpers
-  // ─────────────────────────────────────────────
+    // ─────────────────────────────────────────────
+    // Action helpers
+    // ─────────────────────────────────────────────
 
-  fillSearchName(name) {
-    this.getSearchNameInput().clear().type(name)
-  }
+    fillSearchName(name) {
+        this.getSearchNameInput().clear().type(name);
+    }
 
-  clearSearchName() {
-    this.getSearchNameInput().clear()
-  }
+    clearSearchName() {
+        this.getSearchNameInput().clear();
+    }
 
-  submitSearch() {
-    this.getSearchButton().click()
-  }
+    submitSearch() {
+        this.getSearchButton().click();
+    }
 
-  resetSearch() {
-    this.getResetButton().click()
-  }
+    resetSearch() {
+        this.getResetButton().click();
+    }
 
-  searchByName(name) {
-    this.fillSearchName(name)
-    this.submitSearch()
-  }
+    searchByName(name) {
+        this.fillSearchName(name);
+        this.submitSearch();
+    }
 }
 
-export default DirectoryPage
+export default DirectoryPage;
