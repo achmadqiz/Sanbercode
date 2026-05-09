@@ -1,0 +1,61 @@
+{
+  "credentials": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+
+  "urls": {
+    "login":        "/web/index.php/auth/login",
+    "dashboard":    "/web/index.php/dashboard/index",
+    "directory":    "/web/index.php/directory/viewDirectory",
+    "employeeList": "/web/index.php/pim/viewEmployeeList"
+  },
+
+  "selectors": {
+    "usernameInput":        "[name='username']",
+    "passwordInput":        "[name='password']",
+    "loginButton":          "[type='submit']",
+
+    "topbarBreadcrumb":     ".oxd-topbar-header-breadcrumb",
+    "pageTitle":            ".oxd-topbar-header-breadcrumb h6",
+    "directoryMenuLink":    "[href='/web/index.php/directory/viewDirectory']",
+
+    "searchNameInput":      ".oxd-input:first",
+    "jobTitleDropdown":     ".oxd-select-text:nth-of-type(1)",
+    "searchButton":         "[type='submit']",
+    "resetButton":          "[type='reset']",
+
+    "employeeCard":         ".orangehrm-directory-card",
+    "employeeCardName":     ".orangehrm-directory-card-header",
+    "employeeCardJob":      ".orangehrm-directory-card-body p:first-child",
+    "employeeCardLocation": ".orangehrm-directory-card-body p:last-child",
+
+    "noRecordsFound":       ".orangehrm-horizontal-padding .orangehrm-directory-result"
+  },
+
+  "api": {
+    "employeeList":    "/web/index.php/api/v2/directory/employees*",
+    "employeeDetail":  "/web/index.php/api/v2/directory/employees/*",
+    "i18nMessages":    "**/core/i18n/messages*"
+  },
+
+  "mockEmployee": {
+    "empNumber":  1,
+    "firstName":  "Mock",
+    "lastName":   "Employee",
+    "jobTitle":   { "name": "QA Engineer" },
+    "location":   { "name": "Jakarta" },
+    "employeeId": "EMP001"
+  },
+
+  "searchCases": {
+    "validName":       "John",
+    "partialName":     "ad",
+    "nonExistentName": "zzznobodyzzzxxx",
+    "specialCharName": "!@#$%",
+    "numericName":     "12345",
+    "longName":        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "xssPayload":      "<script>alert('xss')</script>",
+    "sqlPayload":      "' OR '1'='1"
+  }
+}
