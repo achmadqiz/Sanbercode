@@ -1,150 +1,28 @@
 {
   "urls": {
-    "login":     "/web/index.php/auth/login",
+    "login": "/web/index.php/auth/login",
     "dashboard": "/dashboard",
     "resetPage": "/requestPasswordResetCode",
-    "employee":  "/web/index.php/pim/viewEmployeeList"
+    "employee": "/web/index.php/pim/viewEmployeeList"
   },
-
   "selectors": {
-    "usernameInput":   "[name='username']",
-    "passwordInput":   "[name='password']",
-    "loginButton":     "[type='submit']",
-    "errorMessage":    ".oxd-alert-content-text",
-    "requiredHelper":  ".oxd-input-field-error-message",
-    "forgotPassword":  ".orangehrm-login-forgot > p",
+    "usernameInput": "[name='username']",
+    "passwordInput": "[name='password']",
+    "loginButton": "[type='submit']",
+    "errorMessage": ".oxd-alert-content-text",
+    "requiredHelper": ".oxd-input-field-error-message",
+    "forgotPassword": ".orangehrm-login-forgot > p",
     "dashboardHeader": ".oxd-topbar-header-breadcrumb"
   },
-
-  "validUser": {
-    "username": "Admin",
-    "password": "admin123"
+  "credentials": {
+    "admin": { "username": "Admin", "password": "admin123" },
+    "lowercase": { "username": "admin", "password": "admin123" }
   },
-
-  "positiveCases": [
-    {
-      "tcId":        "TC_001",
-      "description": "Login with valid username and valid password",
-      "username":    "Admin",
-      "password":    "admin123",
-      "submitMethod": "button"
-    },
-    {
-      "tcId":        "TC_007",
-      "description": "Login with lowercase username (case-insensitive check)",
-      "username":    "admin",
-      "password":    "admin123",
-      "submitMethod": "button"
-    },
-    {
-      "tcId":        "TC_018",
-      "description": "Login by pressing Enter key instead of clicking the login button",
-      "username":    "Admin",
-      "password":    "admin123",
-      "submitMethod": "enter"
-    }
-  ],
-
-  "invalidCredentialsCases": [
-    {
-      "tcId":        "TC_002",
-      "description": "Login with valid username and wrong password",
-      "username":    "Admin",
-      "password":    "wrongpass"
-    },
-    {
-      "tcId":        "TC_003",
-      "description": "Login with unregistered username and random password",
-      "username":    "randomuser",
-      "password":    "randompass"
-    },
-    {
-      "tcId":        "TC_008",
-      "description": "Login with username containing leading and trailing spaces",
-      "username":    " Admin ",
-      "password":    "admin123"
-    },
-    {
-      "tcId":        "TC_012",
-      "description": "Login with username exceeding 100 characters",
-      "username":    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "password":    "admin123"
-    },
-    {
-      "tcId":        "TC_013",
-      "description": "Login with password exceeding 100 characters",
-      "username":    "Admin",
-      "password":    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    },
-    {
-      "tcId":        "TC_016",
-      "description": "Login with special characters in the username field",
-      "username":    "Admin!@#$",
-      "password":    "admin123"
-    },
-    {
-      "tcId":        "TC_017",
-      "description": "Login with special characters in the password field",
-      "username":    "Admin",
-      "password":    "!@#$%^&*()"
-    },
-    {
-      "tcId":        "TC_019",
-      "description": "Login with numeric-only username",
-      "username":    "123456",
-      "password":    "admin123"
-    },
-    {
-      "tcId":        "TC_020",
-      "description": "Login with numeric-only password",
-      "username":    "Admin",
-      "password":    "123456"
-    }
-  ],
-
-  "requiredFieldCases": [
-    {
-      "tcId":       "TC_004",
-      "description": "Username filled, password empty — should show Required under password",
-      "username":   "Admin",
-      "password":   "",
-      "emptyField": "password"
-    },
-    {
-      "tcId":       "TC_005",
-      "description": "Password filled, username empty — should show Required under username",
-      "username":   "",
-      "password":   "randompass",
-      "emptyField": "username"
-    },
-    {
-      "tcId":       "TC_006",
-      "description": "Both username and password empty — should show Required under both fields",
-      "username":   "",
-      "password":   "",
-      "emptyField": "both"
-    }
-  ],
-
-  "securityCases": [
-    {
-      "tcId":        "TC_009",
-      "description": "SQL injection in the username field",
-      "username":    "' OR '1'='1",
-      "password":    "anything"
-    },
-    {
-      "tcId":        "TC_010",
-      "description": "SQL injection in the password field",
-      "username":    "Admin",
-      "password":    "' OR '1'='1"
-    },
-    {
-      "tcId":        "TC_011",
-      "description": "XSS payload in the username field",
-      "username":    "<script>alert('xss')</script>",
-      "password":    "admin123",
-      "isXss":       true
-    }
-  ]
+  "payloads": {
+    "xss": "<script>alert('xss')</script>",
+    "sql": "' OR '1'='1",
+    "long100": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "specialChars": "!@#$%^&*()",
+    "numericOnly": "123456"
+  }
 }

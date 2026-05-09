@@ -1,8 +1,15 @@
+import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
+import { categorySchema, productSchema } from '../schemas/category-schema'
+
+const ajv = new Ajv({ allErrors: true })  // allErrors: report ALL failures, not just first
+addFormats(ajv)
+
+const validateCategory = ajv.compile(categorySchema)
+const validateProduct  = ajv.compile(productSchema)
+
 const API_BASE = Cypress.env('apiBaseUrl') || 'https://api.escuelajs.co/api/v1'
 
-// ─────────────────────────────────────────────
-// 1. GET - List Categories
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiGetCategories', () => {
   return cy.request({
     method: 'GET',
@@ -16,9 +23,6 @@ Cypress.Commands.add('apiGetCategories', () => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 2. GET - Single Category by ID
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiGetCategoryById', (categoryId) => {
   return cy.request({
     method: 'GET',
@@ -34,9 +38,6 @@ Cypress.Commands.add('apiGetCategoryById', (categoryId) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 3. GET - Single Category by Slug
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiGetCategoryBySlug', (slug) => {
   return cy.request({
     method: 'GET',
@@ -49,9 +50,6 @@ Cypress.Commands.add('apiGetCategoryBySlug', (slug) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 4. POST - Create New Category
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiCreateCategory', (categoryData) => {
   return cy.request({
     method: 'POST',
@@ -69,9 +67,6 @@ Cypress.Commands.add('apiCreateCategory', (categoryData) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 5. PUT - Update Category
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiUpdateCategory', (categoryId, updateData) => {
   return cy.request({
     method: 'PUT',
@@ -85,9 +80,6 @@ Cypress.Commands.add('apiUpdateCategory', (categoryId, updateData) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 6. DELETE - Remove Category
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiDeleteCategory', (categoryId) => {
   return cy.request({
     method: 'DELETE',
@@ -100,9 +92,6 @@ Cypress.Commands.add('apiDeleteCategory', (categoryId) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// 7. GET - Products by Category
-// ─────────────────────────────────────────────
 Cypress.Commands.add('apiGetProductsByCategory', (categoryId) => {
   return cy.request({
     method: 'GET',
@@ -116,29 +105,19 @@ Cypress.Commands.add('apiGetProductsByCategory', (categoryId) => {
   })
 })
 
-// ─────────────────────────────────────────────
-// Helper: Validate Category Schema
-// ─────────────────────────────────────────────
+
 Cypress.Commands.add('validateCategorySchema', (category) => {
-  // cy.log(JSON.stringify(category))
-  expect(category).to.include.keys('id', 'name', 'slug', 'image');
-  expect(category.id).to.be.a('number').and.to.be.greaterThan(0)
-  expect(category.name).to.be.a('string').and.to.not.be.empty
-  expect(category.slug).to.be.a('string').and.to.not.be.empty
-  expect(category.image).to.be.a('string').and.to.include('http')
-  cy.log('Schema validation passed')
+  const valid = validateCategory(category)
+  if (!valid) {
+    throw new Error(`Category schema failed:\n${ajv.errorsText(validateCategory.errors, { separator: '\n' })}`)
+  }
+  cy.log('Category schema passed')
 })
 
-// ─────────────────────────────────────────────
-// Helper: Validate Product Schema
-// ─────────────────────────────────────────────
 Cypress.Commands.add('validateProductSchema', (product) => {
-  expect(product).to.include.keys('id', 'title', 'slug', 'price', 'description', 'category', 'images')
-  expect(product.id).to.be.a('number').and.to.be.greaterThan(0)
-  expect(product.title).to.be.a('string').and.to.not.be.empty
-  expect(product.price).to.be.a('number').and.to.be.greaterThan(0)
-  expect(product.category).to.be.an('object')
-  expect(product.category).to.have.property('id')
-  expect(product.images).to.be.an('array')
-  cy.log('Product schema validation passed')
+  const valid = validateProduct(product)
+  if (!valid) {
+    throw new Error(`Product schema failed:\n${ajv.errorsText(validateProduct.errors, { separator: '\n' })}`)
+  }
+  cy.log('Product schema passed')
 })

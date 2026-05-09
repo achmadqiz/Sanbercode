@@ -16,7 +16,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     }
   });
 
-  it("[API-001] GET /categories - Should return list of all categories with valid schema", () => {
+  it("[CAT-CRUD-001]/categories - Should return list of all categories with valid schema", () => {
     cy.apiGetCategories().then((response) => {
       expect(response.status).to.eq(testData.expectedStatus.success);
 
@@ -25,7 +25,6 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
 
       // Schema Validation on First Item
       const firstCategory = response.body[0];
-      cy.log("testes====================\n\n\n", firstCategory);
       cy.validateCategorySchema(firstCategory);
 
       // Data Integrity Checks
@@ -36,7 +35,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-004] POST /categories/ - Should create new category successfully", () => {
+  it("[CAT-CRUD-002]/categories/ - Should create new category successfully", () => {
     const newCategory = {
       name: `${testData.testData.newCategory.name}`,
       image: testData.testData.newCategory.image,
@@ -58,14 +57,12 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-002] GET /categories/{id} - Should return specific category by ID", () => {
+  it("[CAT-CRUD-003]/categories/{id} - Should return specific category by ID", () => {
     cy.apiGetCategoryById(createdCategoryId).then((response) => {
       expect(response.status).to.eq(testData.expectedStatus.success);
       expect(response.body).to.be.an("object");
 
       cy.validateCategorySchema(response.body);
-      cy.log("============")
-      cy.log(testData.testData.newCategory.name) 
       // Specific Data Validation
       expect(response.body.id).to.eq(createdCategoryId);
       expect(response.body.name).to.eq(testData.testData.newCategory.name);
@@ -73,7 +70,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-003] GET /categories/slug/{slug} - Should return category by slug", () => {
+  it("[CAT-CRUD-004]/categories/slug/{slug} - Should return category by slug", () => {
     cy.apiGetCategoryBySlug(testData.testData.newCategory.slug).then((response) => {
       expect(response.status).to.eq(testData.expectedStatus.success);
       expect(response.body).to.be.an("object");
@@ -86,28 +83,27 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-005] PUT /categories/{id} - Should update existing category", () => {
+  it("[CAT-CRUD-005]/categories/{id} - Should update existing category", () => {
     const updateData = {
       name: `${testData.testData.updateCategory.name}`,
       image: testData.testData.updateCategory.image,
     };
 
-    // Using ID 2 for update (safe to modify)
-    cy.apiUpdateCategory(2, updateData).then((response) => {
+    cy.apiUpdateCategory(createdCategoryId, updateData).then((response) => {
       expect(response.status).to.eq(testData.expectedStatus.success);
       expect(response.body).to.be.an("object");
 
       cy.validateCategorySchema(response.body);
 
       // Update Verification
-      expect(response.body.id).to.eq(2);
+      expect(response.body.id).to.eq(createdCategoryId);
       expect(response.body.name).to.eq(updateData.name);
       expect(response.body.image).to.eq(updateData.image);
       expect(response.body.slug).to.include("updated-category");
     });
   });
 
-  it("[API-006] DELETE /categories/{id} - Should delete category successfully", () => {
+  it("[CAT-CRUD-006]/categories/{id} - Should delete category successfully", () => {
     // First create a category specifically for deletion
     const categoryToDelete = {
       name: `${testData.testData.categoryToDelete.name}`,
@@ -136,7 +132,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-007] GET /categories/{id}/products - Should return products for category", () => {
+  it("[CAT-CRUD-007]/categories/{id}/products - Should return products for category", () => {
     cy.apiGetProductsByCategory(1).then((response) => {
       expect(response.status).to.eq(testData.expectedStatus.success);
       expect(response.body).to.be.an("array");
@@ -154,7 +150,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-NEG-001] GET /categories/{invalidId} - Should return error for non-existent ID", () => {
+  it("[CAT-CRUD-008] GET /categories/{invalidId} - Should return error for non-existent ID", () => {
     cy.apiGetCategoryById(99999).then((response) => {
       expect(response.status).to.be.oneOf([
         testData.expectedStatus.badRequest,
@@ -164,7 +160,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     });
   });
 
-  it("[API-NEG-002] GET /categories/slug/{invalidSlug} - Should return error", () => {
+  it("[CAT-CRUD-009] GET /categories/slug/{invalidSlug} - Should return error", () => {
     cy.apiGetCategoryBySlug("this-slug-does-not-exist-12345").then(
       (response) => {
         expect(response.status).to.be.oneOf([
@@ -176,7 +172,7 @@ describe("Platzi FakeAPI | Categories API - Core CRUD (7+ Requests)", () => {
     );
   });
 
-  it("[API-NEG-003] POST /categories/ - Should reject invalid category data", () => {
+  it("[CAT-CRUD-010] POST /categories/ - Should reject invalid category data", () => {
     cy.apiCreateCategory(testData.testData.invalidCategory).then((response) => {
       expect(response.status).to.be.oneOf([
         testData.expectedStatus.badRequest,
