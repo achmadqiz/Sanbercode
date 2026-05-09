@@ -7,6 +7,8 @@ module.exports = defineConfig({
         fixturesFolder: "cypress/fixtures",
         supportFile: "cypress/support/e2e.js",
 
+        experimentalRunAllSpecs: true,
+
         defaultCommandTimeout: 8000,
         pageLoadTimeout: 30000,
         responseTimeout: 15000,
