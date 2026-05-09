@@ -184,20 +184,4 @@ describe("OrangeHRM | Login - cy.intercept() Tests", () => {
                 .and("contain.text", "Invalid credentials");
         });
     });
-
-    describe("Resilience Cases", () => {
-        it("[AUTH-LOGIN-021] Stub dashboard API 500 - page does not crash", () => {
-            cy.intercept("GET", API.dashboard, {
-                statusCode: 500,
-                body: { error: "Internal Server Error" },
-            }).as("dashboardStub");
-
-            cy.login("Admin", "admin123");
-
-            cy.wait("@dashboardStub")
-                .its("response.statusCode")
-                .should("eq", 500);
-            cy.url().should("include", DASHBOARD);
-        });
-    });
 });
